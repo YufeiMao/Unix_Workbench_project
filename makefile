@@ -1,9 +1,9 @@
 README.md: guessinggame.sh
 	touch README.md
 	echo "#Guess Me" > README.md
-	echo ""
+	echo "\n"
 	echo `date -R` >> README.md
-	echo ""
+	echo "\n"
 	echo "Line of bash:`wc -l <guessinggame.sh`" >> README.md
 	touch file1.txt
 	touch file2.txt
