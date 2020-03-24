@@ -1,0 +1,14 @@
+nrFiles=24
+DATE=$(date -R)
+line=$(wc -l guessinggame.sh)
+
+README.md:
+	touch README.m	echo "#Guess Me" > README.md
+	echo $DATE >> README.md
+	$(eval echo "Line of guessinggame.sh:$line") >> README.md
+
+eval echo file_{1..$nrFiles}.txt:
+	touch $(eval echo file_{1..$nrFiles}.txt)
+
+clean:
+	rm README.md
