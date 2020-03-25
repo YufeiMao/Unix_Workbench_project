@@ -1,14 +1,21 @@
 echo "Guess the quantity of files in this folder:"
 read nrGuess
 nrFiles=$(ls -1|wc -l)
-while ! [[ "$nrGuess" =~ ^[0-9]+$ ]]
-do
-	echo "The input is not a number"
-	echo "Guess again"
-	read nrGuess
-done
 
-while [[ ! $nrGuess -eq $nrFiles ]]
+function isNumber()
+{
+	declare x="$1"
+	while ! [[ $x =~ ^[0-9]+$ ]]
+	do
+		echo "The input is not a number"
+		echo "Guess again"
+		read x
+	done
+}
+
+isNumber $nrGuess
+
+while ! [[  $nrGuess -eq $nrFiles ]]
 do
 	if [[ $nrGuess -gt $nrFiles ]]
 	then
@@ -19,11 +26,7 @@ do
 	echo ""
 	echo "guess again:"
 	read nrGuess
-	while ! [[ "$nrGuess" =~ ^[0-9]+$ ]]
-	do
-        	echo "The input is not a number"
-        	read nrGuess
-	done
+	isNumber $nrGuess
 
 done
 echo "Correct!"
