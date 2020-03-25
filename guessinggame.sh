@@ -1,32 +1,29 @@
-echo "Guess the quantity of files in this folder:"
-read nrGuess
-nrFiles=$(ls -1|wc -l)
+nrFiles=$(ls -1A|wc -l)
+
+read -p "Guess the quantity of files in this folder: " nrGuess
 
 function isNumber()
 {
-	declare x="$1"
-	while ! [[ $x =~ ^[0-9]+$ ]]
-	do
-		echo "The input is not a number"
-		echo "Guess again"
-		read x
-	done
+	if [[ "$1" =~ ^[+-]?[0-9]+$ ]]
+	then
+		return 0
+	else
+		return 1
+	fi
 }
 
-isNumber $nrGuess
-
-while ! [[  $nrGuess -eq $nrFiles ]]
+while	[[ $nrGuess != $nrFiles ]]
 do
-	if [[ $nrGuess -gt $nrFiles ]]
+	if ! $(isNumber $nrGuess)
 	then
-		echo "The guess is larger than real."
+		printf "The input is not an integer, "
+	elif [[ $nrGuess -gt $nrFiles ]]
+	then
+		printf "The guess is larger than real, "
 	else
-		echo "The guess is smaller than real."
+		printf "The guess is smaller than real, "
 	fi
-	echo ""
-	echo "guess again:"
-	read nrGuess
-	isNumber $nrGuess
-
+	read -p "guess again: " nrGuess
 done
-echo "Correct!"
+
+echo "Congrats, correct number!"
